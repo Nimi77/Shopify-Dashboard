@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .onboarding-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .onboarding-step {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 5px;
+      cursor: pointer;
+      width: 200px;
+      text-align: center;
+    }
+
+    .onboarding-content {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 20px;
+      background-color: #eee;
+      margin-top: 10px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background-color: #4CAF50;
+    }
+  </style>
+  <title>Onboarding Steps</title>
+</head>
+<body>
+
+  <div class="onboarding-container">
+    <div class="onboarding-step" onclick="toggleOnboarding('step1')">Step 1</div>
+    <div class="onboarding-content" id="step1">Content for Step 1</div>
+
+    <div class="onboarding-step" onclick="toggleOnboarding('step2')">Step 2</div>
+    <div class="onboarding-content" id="step2">Content for Step 2</div>
+
+    <div class="onboarding-step" onclick="toggleOnboarding('step3')">Step 3</div>
+    <div class="onboarding-content" id="step3">Content for Step 3</div>
+
+    <div class="onboarding-step" onclick="toggleOnboarding('step4')">Step 4</div>
+    <div class="onboarding-content" id="step4">Content for Step 4</div>
+
+    <div class="onboarding-step" onclick="toggleOnboarding('step5')">Step 5</div>
+    <div class="onboarding-content" id="step5">Content for Step 5</div>
+
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = null;
+
+    function toggleOnboarding(stepId) {
+      const content = document.getElementById(stepId);
+      const progressBar = document.getElementById('progressBar');
+
+      if (currentStep && currentStep !== content) {
+        currentStep.style.display = 'none';
+      }
+
+      content.style.display = (content.style.display === 'none') ? 'block' : 'none';
+      currentStep = (content.style.display === 'none') ? null : content;
+
+      // Update progress bar width based on the number of steps completed
+      const completedSteps = Array.from(document.getElementsByClassName('onboarding-content')).filter(step => step.style.display === 'block').length;
+      const totalSteps = 5;
+      const progressWidth = (completedSteps / totalSteps) * 100;
+      progressBar.style.width = `${progressWidth}%`;
+    }
+  </script>
+
+</body>
+</html>
