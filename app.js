@@ -1,16 +1,3 @@
-// general function for pressed
-let dropdownIcon = document.querySelector('.dropdown-icon');
-let allStore = document.querySelector('.store');
-let searchContainer = document.querySelector('.input');
-
-function clickedAction(){
-    dropdownIcon.classList.toggle('clicked');
-    allStore.classList.toggle('clicked');
-    searchContainer.classList.toggle('pressed');
-
-    // console.log('heyyy')
-}
-
 // notification alert
 const notificationContainer = document.getElementById('notificationInfo'); 
 const notificationMenu = document.getElementById("notificationMenu");
@@ -109,43 +96,37 @@ ProfileMenu();
 
 // closing plan for free trial container
 let planContainer = document.getElementById('plan-container');
-let closeBtn = document.getElementById("close-trial-l");
-let closeBtnS = document.getElementById("close-trial-s");
+let closeBtn = document.getElementById("close-trial-l"); //this is for laptop screen
+let closeBtnS = document.getElementById("close-trial-s"); //this is for mobile screens
 closeBtn.addEventListener("click", function(){
     planContainer.style.display = "none"
     
 })
 closeBtnS.addEventListener("click", function(){
     planContainer.style.display = "none"
-    console.log("why")
 })
 
 // toggling setUpGuideInfo using the dropdownIcon
-
 function hideShow(){
     var setupGuideInfo = document.getElementById("setup-guide-info");
-    var dropdownOpen = document.getElementById("open")
-    var dropdownClose = document.getElementById("close")
-    const dropdownGuide = document.getElementById("dropdownIcon")
-    var display= 0;
+    var dropdownOpen = document.getElementById("open");
+    var dropdownClose = document.getElementById("close");
+    const dropdownGuide = document.getElementById("dropdownIcon");
 
-    const setupGuideExpanded = dropdownGuide.attributes["aria-expanded"].value == "true";
+    const setupGuideExpanded = dropdownGuide.attributes["aria-expanded"].value == "true"; //for sreen readers
   
     function toggleGuide(){ 
-        if (setupGuideExpanded){
-            console.log("work")
+        if (setupGuideExpanded){ 
             dropdownGuide.ariaExpanded = "false"
-            // close guide info
+            // close guide info if the div is not expanded
             setupGuideInfo.style.display = "none"
-    
             dropdownOpen.style.display = "flex"
             dropdownClose.style.display = "none" 
         }
         else{
             dropdownGuide.ariaExpanded = "true"
-            // open guide info
+            // open guide info the div is expanded
             setupGuideInfo.style.display = "block";
-            
             dropdownClose.style.display = "flex"
             dropdownOpen.style.display = "none"
         }
@@ -175,41 +156,24 @@ btn.onclick = function(){
 // setup guide toggling
 
 document.addEventListener('DOMContentLoaded', getClickedElement);
-var contentInfo = document.querySelector("#guide-content")
 function getClickedElement(){
     let toggleTrigger = document.querySelectorAll('.toggle-trigger').forEach(item => {
         item.addEventListener('click', function(e){
             e.preventDefault();
             let guideInfo = item.closest('.guide-step').querySelector('.toggle-area');
             justToggle(guideInfo);
+    
+      
         })
     })
 }
 
 function justToggle(guideInfo){
-    let currentStep = null;
-    const content = document.getElementById("toggle-area");
     if(guideInfo.style.display === "none"){
         guideInfo.style.display = "flex";
-        guideInfo.closest('.guide-step').classList.add('active');
-        currentStep.style.display = 'none';
-       
-
-        if (currentStep && currentStep !== content) {
-            currentStep.style.display = 'none';
-        }
-    
-        content.style.display = (content.style.display === 'none') ? 'flex' : 'none';
-          currentStep = (content.style.display === 'none') ? null : content;
-    
-    
+      
     } else{
         guideInfo.style.display = "none"
-        guideInfo.closest('.guide-step').classList.remove('active');
-     
     }
-   
 }
-
-
-
+var contentInfo = document.querySelectorAll(".content")

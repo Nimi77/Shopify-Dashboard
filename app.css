@@ -656,7 +656,7 @@ input::placeholder{
     padding: 8px 8px 12px 8px;
     gap:8px;
     border-radius: 10px;  
-    background-color: inherit;
+    background-color: none;
 }
 .content button.check-button{
     display: flex;
@@ -692,38 +692,37 @@ input::placeholder{
         transform: rotate(1turn);
     }
 }
-.content .guide-step{
+.content .guide-step:not(:last-child:nth-child(2)){
     display: flex;
     flex-direction: column;
     padding: 2px 0px 2px 0px;
-    gap:16px;
 }
 .guide-step h4{
     font-weight: 500;
+    line-height: 18.2px;
     font-size:13px;
     color: #303030;
 }
-/* .info-context .toggle-area {
-    display: none;
-} */
 .info-context.active h4.toggle-trigger{
     font-weight: 600;
 }
-.toggle-trigger.active{
+
+.content.active{
     background-color: #F3F3F3;
-}
+}/* styling for changing the background 
+of the guide when clicked */
+
 .toggle-area{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap:96px;
 }
 .info-details{
     display: flex;
-    padding: 2px 0px;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    flex: 1 0 0;
 }
 .info-details p{
     width:483.86px;
@@ -813,10 +812,6 @@ input::placeholder{
 .payment .toggle-area
 {
     display: none;
-}
-#guide-content.customize{
-    background-color:#F3F3F3; 
-   
 }
 .customize .guide-step .toggle-trigger h4 {
     font-weight: 600;
