@@ -154,26 +154,11 @@ btn.onclick = function(){
 }
 
 // setup guide toggling
-
-document.addEventListener('DOMContentLoaded', getClickedElement);
-function getClickedElement(){
-    let toggleTrigger = document.querySelectorAll('.toggle-trigger').forEach(item => {
-        item.addEventListener('click', function(e){
-            e.preventDefault();
-            let guideInfo = item.closest('.guide-step').querySelector('.toggle-area');
-            justToggle(guideInfo);
-    
-      
-        })
-    })
-}
-
-function justToggle(guideInfo){
-    if(guideInfo.style.display === "none"){
-        guideInfo.style.display = "flex";
-      
-    } else{
-        guideInfo.style.display = "none"
+function openContent(step){
+    var i;
+    var x = document.getElementsByClassName("toggle-area");
+    for (i = 0; i < x.length; i++ ){
+        x[i].style.display = "none";
     }
+    document.getElementById(step).style.display = "flex";
 }
-var contentInfo = document.querySelectorAll(".content")
