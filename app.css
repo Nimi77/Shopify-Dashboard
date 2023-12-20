@@ -179,71 +179,92 @@ input::placeholder{
     font-weight: 500;
     color: #B5B5B5;
 }
+/* styling for the notification-info */
 .merchant-goto{
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 8px;
+    align-items: center;
+    gap:8px;
 }
-.notification-menu{
-    display: flex;
-    width: 32px;
-    height: 32px;
-    padding: 8px;
+.merchant-goto .notification-btn{
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    padding: 8px;
     border-radius: 8px;
     background-color: #303030;  
     color:var(--general-text-color);
     transition: all 200ms ease;
 }
-.notification-menu .notification-bell svg{
+.notification-btn .notification-icon svg{
     flex-shrink: 0;
 }
-.notification-menu.pressed{
-    background: var(--grey-grey-50, #656266); 
-    color: #E3E3E3;      
-}
-.notification-info{
-    display:none;    
+/* styling of menu list for notification */
+.merchant-goto .notification-info-card{
     position: absolute;
-    padding: 16px;
+    display: none;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    padding: 16px;
     top:64px;
     right:1%;
+    z-index: 10;
     border-radius: 14px;
     border:1px solid #DBDBDB;
     background-color: #FFFFFF;
     box-shadow: 0px 4px 8px 0px #0000000D;
+    overflow: hidden;
+    transition: top 0.2s linear, opacity 0.2s ease-in;
+    height: 0;
+    opacity: 0;
 }
-.notification-info .alert-heading{
+.notification-info-card .alert-heading{
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
 }
-.alert-heading > h4{
+.notification-info-card .alert-heading > h4{
     font-weight: 600;
     font-size: 14px;
     font-size: 14px;
     font-style: normal;
 }
-.alert-heading .icons{
+.notification-info-card .alert-heading .icons{
     display: flex;
     align-items: flex-start;
     gap: 16px;
 }
-.notification-info .alert-text{
+.alert-heading .icons button{
+    display: flex;
+    align-items: center;
+    background: unset;
+    height: 20px;
+    width: 20px;
+    outline-offset: 6px;
+    border-radius: 3px;
+    transition: outline-offset 0.2s ease;
+}
+.alert-heading .icons button{
+    &:hover{
+        background-color: #E7E7E7 ;  
+    }
+    &:focus{
+        outline: 2px solid #005BD3;
+        outline-offset: 2px;
+    }
+    &:active{
+        background: #E0E0E0;
+    }
+}
+.notification-info-card .alert-text{
     display: flex;
     padding: 16px;
     align-items: center;
     gap: 8px;
     background: var(--states-hover, #F1F1F1);
 }
-.alert-text > p{
+.notification-info-card .alert-text > p{
     color: var(--font-mid-2, #616161);
     text-align: center;
     font-size: 13px;
@@ -251,10 +272,8 @@ input::placeholder{
     font-weight: 600;
     line-height:18.2px;
 }
-.notification-info.open-notification{
-    display: inline-flex; 
-}
-.merchant-info .profile{
+/* styling for the merchant profile info*/
+.merchant-goto .profile-btn{
     display: flex;
     padding: 2px 2px 2px 8px;
     align-items: center;
@@ -263,17 +282,14 @@ input::placeholder{
     border-radius: 8px;
     background-color: #303030;
 }
-.merchant-info .profile.pressed{
-    background: var(--grey-grey-50, #656266);
-}
-.profile span:nth-child(1){
+.merchant-goto .profile-btn span:nth-child(1){
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
     line-height: 15.6px;
     color: var(--general-text-color);
 }
-.profile span:nth-child(2){
+.profile-btn span:nth-child(2){
     display: flex; 
     justify-content: center;
     align-items: center;
@@ -285,51 +301,35 @@ input::placeholder{
     color: #00000066;
     background-color: #36FBA1;
 }
-.notification-icon:hover,
-.profile:hover{
-    background-color: #616161;
-}
-.notification-menu:focus, 
-.profile:focus-within{
-    border-radius: 8px;
-    background: var(--grey-grey-50, #656266);
-    box-shadow: 0px 0px 0px 3px #005BD3, 0px 0px 0px 1px #000;
-    outline: none;
-    border: none;   
-}
-
-.merchant-name:focus-within, .merchant-profile:focus-within{
-    border: none;
-    outline: none;
-}
-.merchant-info #profileSubMenu{
-    width:320px;
-    display: none;
+/* styling of menu list for merchant dashboard */
+.merchant-goto .dashboard-container{
     position: absolute;
+    width:320px;
     top:64px;
     right:1%;
+    z-index: 10;
     border-radius: 14px;
     border:1px solid #DBDBDB;
     background-color: #FFFFFF;
     padding: 6px 0px 6px 0px;
-    transition: max-height .5s;
+    transition: top 0.2s linear, opacity 0.2s ease-in;
+    height:0;
+    opacity:0;
+    display: none;
 }
-#profileSubMenu.menu-active{
-    display: block;
-}
-.sub-menu{
+.merchant-goto .dashboard-container .dashboard-menu{
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap:4px;
 }
-.sub-menu .sub-menu-1{
+.dashboard-container .dashboard-menu .menu-1{
     display: flex;
     flex-direction: column;
     gap:4px;
     padding: 0px 6px 0px 6px;
 }
-.sub-menu-1 .user-info{
+.dashboard-menu .menu-1 .user-info{
     display: flex;
     justify-content: space-between;
     align-items: center; 
@@ -337,13 +337,14 @@ input::placeholder{
     border-radius: 8px;
     background-color: #F1F1F1;
 }
-.user-info .user-profile-active{
+.dashboard-menu .menu-1 .user-info .user-profile-active{
     display: flex;
     justify-content: center;
     align-items: center;
     gap:8px;
 }
-.user-profile-active .user-initials{
+.dashboard-menu .menu-1 .user-info .user-profile-active 
+.user-initials{
     width:28px;
     height:28px;
     display: flex;
@@ -355,58 +356,60 @@ input::placeholder{
     border-radius: 5.25px;
     background-color: #36FBA1;
 }
-.user-profile-active .user-name{
+.dashboard-menu .menu-1 .user-info .user-profile-active 
+.user-name{
     font-size: 13px;
     font-weight: 600;
     color: #303030;
 }
-.user-info .check {
+.dashboard-menu .menu-1 .user-info
+.check {
     width:1rem;
 }
+.dashboard-menu .menu-1 .user-info
 .check svg path {
     color: #303030;
     border: 1.33px solid #303030;
 }
-
-.sub-menu-1 .store{
-    display: flex;
-    width: 304px;
+.dashboard-menu .menu-1 .store-btn{
     padding: 6px;
-    align-items: center;
-    gap: 8px;
     border-radius: 8px;
     cursor: pointer;
+    width: 304px;
+    background-color: unset;
     outline: none;
-    transition: ease 0.2s;
+    transition:outline-offset 0.2s ease, background-color 0.2s linear;
 }
-.store span a{
-    outline: none;
+.dashboard-menu .menu-1 .store-btn a{
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-.sub-menu-1 .store:hover{
+.dashboard-menu .menu-1 .store-btn:hover{
     background-color: #E7E7E7 ;  
 }
-.sub-menu-1 .store:focus-within{
+.dashboard-menu .menu-1 .store-btn:focus{
     border: 2px solid var(--states-focused, #005BD3);
 }
-.sub-menu-1 .store:active{
-    background: #E0E0E0;
+.dashboard-menu .menu-1 .store-btn:active{
+    background-color: #E0E0E0;
 }
-.store span:nth-child(2){
+.dashboard-menu .menu-1 .store-btn span{
     font-size: 13px;
     font-weight: 400;
     line-height: 18.2px;
     color:#303030;
 }
-.sub-menu hr{
+.dashboard-menu hr{
     border:0.75px solid #E1E1E1;
 }
-.sub-menu .sub-menu-2{
+.dashboard-menu .menu-2{
     display: flex;
     flex-direction: column;
     gap:4px;
     padding: 0px 6px 0px 6px;
 }
-.sub-menu-2 .menu li{
+.menu-2 #profile-menu-content li{
     font-size: 13px;
     font-weight: 400;
     color: #303030;
@@ -416,25 +419,22 @@ input::placeholder{
     border-radius: 8px;
     transition: border ease-out .1s;
 }
-.sub-menu-2 .menu li a{
+.dashboard-menu #profile-menu-content li a{
     outline: none;
 }
-.sub-menu-2 .menu li:focus-within{
+.dashboard-menu #profile-menu-content li:focus-within{
     border:2px solid #005BD3;
 }
-.sub-menu-2 .menu li:hover{
+.dashboard-menu #profile-menu-content li:hover{
     background-color: #E7E7E7;
 }
-.sub-menu-2 .menu li:active{
+.dashboard-menu #profile-menu-content li:active{
     background-color: #E0E0E0;
 }
-.sub-menu .sub-menu-3{
+.dashboard-menu .menu-3{
     padding: 0px 6px 0px 6px;
 }
-.sub-menu-3 .menu li a{
-    outline: none;
-}
-.sub-menu-3 .menu li:not(:first-of-type){
+.menu-3  #profile-menu-content li{
     padding: 6px;
     font-size: 13px;
     font-weight: 400;
@@ -442,32 +442,65 @@ input::placeholder{
     color: #303030;
     border-radius: 8px;
 }
-.sub-menu-3 .menu li:first-child{
+.menu-3  #profile-menu-content li:first-child{
     display: flex;
     flex-direction: column;
     padding: 8px;
 }
-.menu li:first-child span:nth-child(1){
+.menu-3  #profile-menu-contentli:first-child span:nth-child(1){
     font-size: 13px;
     font-style: 500;
     font-weight: 500;
 }
-.menu li:first-child span:nth-child(2){
+.menu-3  #profile-menu-content li:first-child span:nth-child(2){
     font-size: 12px;
     font-weight: 400;
     color:#616161;
 }
-.sub-menu-3 .menu li:focus-within:not(:first-of-type){
+.menu-3  #profile-menu-content li:focus-within:not(:first-of-type){
     border:2px solid #005BD3;
 }
-.sub-menu-3 .menu li:not(:first-of-type):hover{
+.menu-3  #profile-menu-content li:not(:first-of-type):hover{
     background-color: #E7E7E7;
 }
-.sub-menu-3 .menu li:not(:first-of-type):active{
+.menu-3  #profile-menu-content li:not(:first-of-type):active{
     background-color: #E0E0E0;
 }
+/* styling of the two buttons with pseudo element 
+and classes */
+.merchant-goto .notification-btn:focus,
+.profile-btn:focus{
+    border-radius: 8px;
+    background: var(--grey-grey-50, #656266);
+    box-shadow: 0px 0px 0px 3px #005BD3, 0px 0px 0px 1px #000;
+    outline: none;
+    border: none; 
+}
+.merchant-goto .notification-btn:hover,
+.profile-btn:hover{
+    background-color: #616161;
+}
+.merchant-goto .notification-btn:active,
+.profile-btn:active{
+    background: #656266;
+    outline: unset;
+}
+/* open notification-info-card */
+.merchant-goto .notification-btn[aria-expanded=true] ~ [aria-labelledby=notification-menu-button] {
+    opacity: 1;
+    height: auto;
+    overflow: unset;
+    display: flex;
+}
+/* open merchant-info-card */
+.merchant-goto .profile-btn[aria-expanded=true] ~ [aria-labelledby=merchant-dashboard-button] {
+    opacity: 1;
+    height: auto;
+    overflow: unset;
+    display: flex;
+}
 
-
+/* main body styling */
 .container#main{
     display: flex;
     flex-direction: column;
@@ -500,7 +533,7 @@ input::placeholder{
     justify-content: center;
     gap:8px;
 }
-.action-btn button:first-child {
+.action-btn button.select-btn {
     display: inline-flex;
     align-items: center;
     gap:8px;
@@ -513,35 +546,29 @@ input::placeholder{
     border: 1px solid #0000001A;
     box-shadow: 0px -1px 0px 0px #B5B5B5 inset;
 }
-.action-btn button:first-child a{
+.action-btn button.select-btn a{
     outline: none;
 }
-.action-btn button:first-child:hover{
+.action-btn button.select-btn:hover{
     background: #F7F7F7;
 }
-.action-btn button:first-child:active{
+.action-btn button.select-btn:active{
     background: #F7F7F7;
     box-shadow: 0px 2px 1.5px 0px #E2E2E2 inset;
 }
-.action-btn button:first-child:focus{
+.action-btn button.select-btn:focus{
     border-radius: 6px;
     border: 1px solid rgba(0, 0, 0, 0.10);
     background: var(--White, #FFF);
     box-shadow: 0px 0px 0px 3px #005BD3, 0px 0px 0px 1px #FFF, 0px -1px 0px 0px #B5B5B5 inset;
 }
-.action-btn .close-container{
+.action-btn button.close-container{
     display: flex;
     padding: 6px;
     align-items: flex-start;
     gap: 8px;
     border-radius: 6px;
     transition: border .1s ease-in;
-}
-.action-btn .close-container:hover{
-    background: #E7E7E7; 
-}
-.action-btn .close-container:active{
-    background: #E0E0E0;
 }
 .action-btn .close-container:focus{
     border: 2px solid #005BD3;
@@ -580,37 +607,36 @@ input::placeholder{
     align-items: flex-start;
     align-self: stretch;
 }
-.top .guide-text{
+.setup-guide .top .guide-context{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
 }
-.top .guide{
+.top .guide-context .guide{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
 }
-.top .guide h4{
+.top .guide-context .guide h4{
     font-size: 14px;
     line-height: 19.6px;
     font-weight: 600;  
     color: #303030;
 }
-.guide p{
+.top .guide-context .guide p{
     color: var(--font-dark, var(--grey-g-200, #303030));
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height:18.2px;
 }
-.guide-text .progress{
+/* progress bar styling */
+.top .guide-context .step-update{
     display: flex;
     align-items: center;
     gap: 8px;
-}
-.progress .counting{
     color: var(--font-dark, var(--grey-g-200, #303030));
     font-family: Inter;
     font-size: 12px;
@@ -618,9 +644,21 @@ input::placeholder{
     font-weight: 400;
     line-height: 15.6px;
 }
-.progress .progress-bar svg{
+.guide-context .step-update .progress-box{
     border-radius: 28px;
+    overflow:hidden;
+    height:4px;
+    width:72px;
+    position: relative;
+    background: #E3E3E3;
 }
+.guide-context .step-update .progress-box .bar{
+    width:30%;
+    height:100%;
+    background: #1A1A1A;
+    transition: width 0.3s linear;
+}
+/* setup guide dropdown icon styling*/
 .setup-guide .top .dropdown-icon{
     display: flex;  
     align-items: center;
@@ -646,117 +684,157 @@ input::placeholder{
     display: flex;
     flex-direction: column;
     gap: 2px;
-    align-self: stretch;
-    overflow: hidden;
+    width: 100%;
+    height: 200px;
+    padding-top: 16px;
+    opacity: 1;
+    transition: padding-top 0.3s ease, opacity 0.3s ease-in;
+    height: auto;
 }
 
 /* content inside the guides */
-.setup-guide-info .content {
-    display: flex;
-    padding: 8px 8px 12px 8px;
-    gap:8px;
-    border-radius: 10px;  
-    background-color: none;
+.setup-guide-info .guide{
+    padding: 8px;
+    position: relative;
+    overflow: hidden;
 }
-.content button.check-button{
+.setup-guide-info .guide.active{
+    padding: 8px 8px 12px 8px;
+    border-radius: 10px;
+    background: #F3F3F3;
+}
+.setup-guide-info .guide .guide-header{
+    gap: 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap:8px;
+    padding-bottom: 8px;
+}
+/* styling the check button */
+.guide .guide-header .check-button{
+    background: transparent;
+    position: relative;
     width: 24px;
-    height: 24px;
-    outline:none;
-    border: none;
-}
-.content button.check-button:focus{
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+    transition: outline-offset 0.2s ease;
     border-radius: 6px;
+    outline-offset: 4px;
+}
+.guide .guide-header .check-button:focus{
     border: 2px solid  #005BD3;
-    background: inherit;
+    outline-offset: 2px;
 }
-.content button.check-button:active{
-    background: #E0E0E0;
+.guide .guide-header .check-button:active{
+    outline-width: 0;
 }
-.content .check-button svg{
-    &:nth-child(2), &:nth-child(3){
-        display: none;
-    }
+.guide .guide-header .check-button > svg{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
 }
-.content .check-button .spinner{
-    animation: animate 1s ease infinite;
+.guide .guide-header .check-button.checked > svg:is(.unchecked, .processing),
+.check-button:is(.checking, .unchecking) > svg:is(.checked, .unchecked), 
+.check-button:is(.checked, .unchecking, .checking):hover > svg.unchecked
+{
+    opacity: 0;
 }
-@keyframes animate {
-    0%{
-        transform: rotate(0turn);
-    }
-    100%{
-        transform: rotate(1turn);
-    }
+.guide .guide-header .check-button.checked  > svg.unchecked, 
+.check-button.unchecked svg.unchecked, 
+.check-button:is(.checking, .unchecking) svg.processing, 
+.check-button.checked svg.checked{
+    opacity: 1;
 }
-.content .guide-step:not(:last-child:nth-child(2)){
-    display: flex;
-    flex-direction: column;
-    padding: 2px 0px 2px 0px;
+.guide .guide-header .check-button:hover svg.unchecked circle{
+    stroke-dasharray: 0 0;
 }
-.guide-step h4{
+.guide .guide-header .check-button.checking svg.processing {
+    animation: rotate 0.35s linear 3 forwards;
+}
+.guide .guide-header .check-button svg.processing {
+    animation: rotate 0.35s linear 3 reverse;
+}
+.guide .guide-header .check-button svg.checked {
+    animation: rotate-in 0.2s linear 1 forwards;
+}
+.guide .guide-header .check-button span:last-child span:nth-child(2) > svg.unchecked circle {
+    transition: stroke-dasharray 0.2s ease;
+}
+/* the toggle-trigger */
+.guide .guide-header .guide-title h4{
     font-weight: 500;
     line-height: 18.2px;
     font-size:13px;
     color: #303030;
+    background: unset;
+    outline-offset: 4px;
+    transition: outline-offset 0.2s ease;
 }
-.info-context.active h4.toggle-trigger{
+.guide .guide-header .guide-title:focus {
+    outline: 2px solid #005BD3;
+    outline-offset: 2px;
+}
+.guide .guide-header .guide-title:active {
+    outline-width: 0;
+}
+.guide.active .guide-header .guide-title h4{
     font-weight: 600;
 }
-
-.content.active{
-    background-color: #F3F3F3;
-}/* styling for changing the background 
-of the guide when clicked */
-
-.toggle-area{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap:96px;
-}
-.info-details{
+.guide .guide-content{
+    opacity: 1;
+    padding-left: 32px;
+    padding-top: 8px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 16px;
+    transition: opacity 0.1s linear;
 }
-.info-details p{
-    width:483.86px;
+.guide .guide-body  .guide-content p{
+    margin: unset;
     font-size: 13px; 
     font-weight: 500;
     line-height: 19.6px;
+
     color: #616161;
 }
-.info-details p > .learn-more{
-    color:#005BD3;
-    outline: none;
-    font-size: 14px;
-    border-radius: 6px;
-    padding: 2px;
-    transition: all .2s ease;
+@media only screen and (min-width: 600px) {
+    .guide .guide-body  p {
+    padding-right: 260px;
+    }
 }
-.info-details p > .learn-more:hover{
+.guide .guide-body .guide-content p > a{
+    color: #005BD3;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    text-decoration: none;
+    outline-offset: 4px;
+    transition: outline-offset 0.3s ease;
+    border-radius: 3px;
+}
+.guide .guide-body .guide-content p > a:hover{
     border-radius: 6px;
     background: #E7E7E7;
 }
-.info-details p > .learn-more:active{
+.guide .guide-body .guide-content p > a:active{
     border-radius: 6px;
     background: #E0E0E0;
 }
-.info-details p > .learn-more:focus{
-    border:2px solid #005BD3;
-    background: #FFF;
+.guide .guide-body .guide-content p > a:focus{
+    outline: 2px solid #005BD3;
+    outline-offset: 2px;
 }
-.info-details .product-btn{
-    display: flex;
+.guide .guide-body .guide-content .action{
+    display: inline-flex;
+    align-items: flex-start;
     gap:16px;
 }
-.info-details .guide-button{
+.guide-content .action .button-black{
     display: inline-flex;
+    position: relative;
     padding: 6px 12px 6px 12px;
     align-items: center;
     gap: 8px;
@@ -766,26 +844,27 @@ of the guide when clicked */
     border-radius: 6px;
     background-color: #404040;
     color: #F6F3F6;
-    border-radius: 6px;
+    outline-offset: 6px;
+    outline: unset;
     border-top: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
     border-right: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
     border-left: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
     box-shadow: 0px 0px 0px 1.5px #333, 0px 1px 0px 1.5px #333, 0px 2px 0px 0px #000;
-    transition: ease-in .1s;
+    transition: outline-offset .2s ease;
 }
-.info-details .guide-button:hover{
+.guide-content .action .button-black:hover{
     background-color: #2A2A2A;
 }
-.info-details .guide-button:active{
+.guide-content .action .button-black:active{
     background-color: #2B2B2B;
     box-shadow: 0px 0px 0px 1.5px #333333, 0px 3px 0px 0px #000000 inset;
 }
-.info-details .guide-button:focus{
+.guide-content .action .button-black:focus{
     border-radius: 6px;
     background-color: #404040;
     box-shadow: 0px 0px 0px 5px #005BD3, 0px 0px 0px 3px #FFF, 0px 0px 0px 1.5px #333;
 }
-.product-btn button:nth-child(2){
+.guide-content .action .button-transparent{
     color: #323232;
     font-size: 12px;
     font-weight: 600;
@@ -796,29 +875,56 @@ of the guide when clicked */
     padding: 6px 12px 6px 12px;
     transition: ease-in .1s;
 }
-.product-btn .import-btn:hover{
-    background-color:#E7E7E7;
+.guide-content .action .button-transparent{
+    &:hover{
+        background-color:#E7E7E7;
+    }
+    &:active{
+        background-color: #E0E0E0;
+    }
+    &:focus{
+        border: 2px solid var(--states-focused, #005BD3);
+        background: #FFF;
+    }
 }
-.product-btn .import-btn:active{
-    background-color: #E0E0E0;
+.guide-body .illlustration{
+    opacity: 1;
+    height: 140px;
+    padding: 10px;
+    padding-right: 0;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
 }
-.product-btn .import-btn:focus{
-    border: 2px solid var(--states-focused, #005BD3);
-    background: #FFF;
+.guide-body .illlustration .bottom-fade{
+    position: absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background-color: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0), rgba(243, 243, 243, 0.1725490196), rgba(243, 243, 243, 0.44), rgb(243, 243, 243), #F3F3F3);
 }
-.setup-guide-info .add-product .toggle-area,
-.domain .toggle-area,
-.store .toggle-area,
-.payment .toggle-area
-{
+/* styling for guide active and not active */
+.guide:not(.active) .guide-body {
+    height: 0;
+    overflow: hidden;
+}
+.guide:not(.active) .guide-body .guide-content {
+    opacity: 0;
+}
+.guide:not(.active) .guide-body a, 
+.guide:not(.active) .guide-body button {
     display: none;
 }
-.customize .guide-step .toggle-trigger h4 {
-    font-weight: 600;
+.guide:not(.active) .guide-header {
+    padding-bottom: 0;
 }
-.toggle-area .illlustration{
-    width: 156.145px;
+.guide:not(.active) .illustration {
+    opacity: 0;
 }
+
 
 
 @media(max-width:944px){
@@ -826,6 +932,7 @@ of the guide when clicked */
         width:100% !important; 
     }
 }  
+
 @media(max-width:768px){
     .container#main{
         margin:32px 10px ;
@@ -837,8 +944,18 @@ of the guide when clicked */
     .search-wrapper{
         max-width:380px;
     }
-   
+    .guide .illustration {
+        display: block;
+      }
+    }
+    .guide .illustration img {
+      height: 100%;
+      -o-object-fit: cover;
+         object-fit: cover;
+      -o-object-position: center;
+         object-position: center;
 }
+
 @media(max-width:425px){
     .nav-bar {
         gap:8px;
@@ -904,7 +1021,6 @@ of the guide when clicked */
         padding: 8px;
         gap:8px;
     }
-    
     .small-screen button{
         width:104px;
         padding: 6px 12px;
@@ -916,19 +1032,18 @@ of the guide when clicked */
         border: 1px solid #0000001A;
         box-shadow: 0px -1px 0px 0px #B5B5B5 inset;
     }
-   
     .setup-guide{
         margin-top:16px;
         border-radius: 0px;
         width:100%;
     }
-    .guide-step .toggle-area{
+    .setup-guide .setup-guide-info .guide .guide-body{
         display: block;
     }
-   .toggle-area .illlustration img{
+   .guide-body .guide-content .illlustration img{
         display: none;
     }
-    .content .info-details p{
+    .guide-body .guide-content p{
        width:fit-content;
     }
     
