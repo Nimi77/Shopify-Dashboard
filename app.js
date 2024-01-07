@@ -91,12 +91,49 @@ Toggling the guide steps
 */
 Array.from(document.getElementsByClassName('guide')).forEach(step=>{
     let checkbox = step.querySelector('button.check-button');
-    let guideHeading = step.querySelector('.guide-title');
+    let guideTitle = step.querySelector('.guide-title');
     let steps = step.parentNode.querySelectorAll('.guide');
-    let guideContent = step.querySelector('.guide-content')
+    let guideContent = step.querySelector('.guide-content > p').textContent.replace('Learn more', '')
 
+    // closing all accordion and setting it to initaial state
+    function closeAllAccordion(){
+        steps.forEach(step =>{
+            step.classList.remove('active');
+        })
+    };
+    guideTitle.addEventListener("click", event =>{
+        closeAllAccordion();
+        step.classList.add('active');
 
+        if(step.classList.contains('active')){
+            politeScreenReader.ariaLabel = guideTitle.textContent + ' accordion opened. reading content. ' + guideContent;
+        }
+    });
+    guideTitle.addEventListener("focus", event=>{
+        if(step.classList.contains('active')){
+            politeScreenReader.ariaLabel = 'accordion opened. reading content ' + guideContent;
+        }
+        else{
+            politeScreenReader.ariaLabel = 'Press Enter to open ' + guideTitle.textContent + ' accordion.'
+        }
+    })
+    guideTitle.addEventListener("blur", event =>{
+        politeScreenReader.ariaLabel = '';
+    })
 
+    checkbox.addEventListener("click", event =>{
+        if(checkbox.classList.contains('checked')){
+            checkbox.classList.remove('checked');
+            checkbox.classList.add('unchecking');
+            politeScreenReader.ariaLabel = 'unchecking';
+        }
+        if((!checkbox.classList.contains('checked') && !checkbox.classList.contains('checking') && !checkbox.classList.contains('unchecking') && !checkbox.classList.contains('unchecked')) || checkbox.classList.contains('unchecked')){
+            checkbox.classList.remove('unchecked');
+            checkbox.classList.add('checking');
+            politeScreenReader.ariaLabel = 'checking';
+        }
+        activateNewStep();
+    })
 })
 // setup guide toggling
 function openContent(step){

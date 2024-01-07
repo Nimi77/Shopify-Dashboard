@@ -598,7 +598,6 @@ and classes */
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap:16px;
 }
 .setup-guide .top{
     display: flex;
@@ -613,19 +612,19 @@ and classes */
     align-items: flex-start;
     gap: 16px;
 }
-.top .guide-context .guide{
+.top .guide-context .instruction{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
 }
-.top .guide-context .guide h4{
+.top .guide-context .instruction h4{
     font-size: 14px;
     line-height: 19.6px;
     font-weight: 600;  
     color: #303030;
 }
-.top .guide-context .guide p{
+.top .guide-context .instruction p{
     color: var(--font-dark, var(--grey-g-200, #303030));
     font-size: 13px;
     font-style: normal;
@@ -714,7 +713,6 @@ and classes */
     background: transparent;
     position: relative;
     width: 24px;
-    aspect-ratio: 1/1;
     display: grid;
     place-items: center;
     transition: outline-offset 0.2s ease;
@@ -774,6 +772,7 @@ and classes */
 }
 .guide .guide-header .guide-title:focus {
     outline: 2px solid #005BD3;
+    border-radius: 6px;
     outline-offset: 2px;
 }
 .guide .guide-header .guide-title:active {
@@ -782,7 +781,7 @@ and classes */
 .guide.active .guide-header .guide-title h4{
     font-weight: 600;
 }
-.guide .guide-content{
+.guide .guide-body > div.guide-content{
     opacity: 1;
     padding-left: 32px;
     padding-top: 8px;
@@ -791,20 +790,15 @@ and classes */
     gap: 16px;
     transition: opacity 0.1s linear;
 }
-.guide .guide-body  .guide-content p{
+.guide .guide-body > div.guide-content p{
     margin: unset;
     font-size: 13px; 
     font-weight: 500;
     line-height: 19.6px;
-
     color: #616161;
 }
-@media only screen and (min-width: 600px) {
-    .guide .guide-body  p {
-    padding-right: 260px;
-    }
-}
-.guide .guide-body .guide-content p > a{
+
+.guide .guide-body > div.guide-content p a{
     color: #005BD3;
     font-size: 14px;
     font-style: normal;
@@ -815,19 +809,19 @@ and classes */
     transition: outline-offset 0.3s ease;
     border-radius: 3px;
 }
-.guide .guide-body .guide-content p > a:hover{
+.guide .guide-body > div.guide-content p a:hover{
     border-radius: 6px;
     background: #E7E7E7;
 }
-.guide .guide-body .guide-content p > a:active{
+.guide .guide-body > div.guide-content p a:active{
     border-radius: 6px;
     background: #E0E0E0;
 }
-.guide .guide-body .guide-content p > a:focus{
+.guide .guide-body > div.guide-content p > a:focus{
     outline: 2px solid #005BD3;
     outline-offset: 2px;
 }
-.guide .guide-body .guide-content .action{
+.guide .guide-body > div.guide-content .action{
     display: inline-flex;
     align-items: flex-start;
     gap:16px;
@@ -856,13 +850,15 @@ and classes */
     background-color: #2A2A2A;
 }
 .guide-content .action .button-black:active{
-    background-color: #2B2B2B;
+    border:unset;
+    outline: unset;
+    padding:6px 13px 7px;
+    background: #2B2B2B;
     box-shadow: 0px 0px 0px 1.5px #333333, 0px 3px 0px 0px #000000 inset;
 }
 .guide-content .action .button-black:focus{
-    border-radius: 6px;
-    background-color: #404040;
-    box-shadow: 0px 0px 0px 5px #005BD3, 0px 0px 0px 3px #FFF, 0px 0px 0px 1.5px #333;
+    outline: 2px solid #005BD3;
+    outline-offset:4px;
 }
 .guide-content .action .button-transparent{
     color: #323232;
@@ -887,7 +883,8 @@ and classes */
         background: #FFF;
     }
 }
-.guide-body .illlustration{
+.guide .guide-body .illlustration{
+    display: block;
     opacity: 1;
     height: 140px;
     padding: 10px;
@@ -897,13 +894,20 @@ and classes */
     top: 50%;
     transform: translateY(-50%);
 }
-.guide-body .illlustration .bottom-fade{
+.guide .guide-body .illlustration img{
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
+}
+.guide .guide-body .illlustration .bottom-fade{
     position: absolute;
     width:100%;
     height:100%;
     top:0;
     left:0;
-    background-color: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0),
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0),
     rgba(255, 255, 255, 0), rgba(243, 243, 243, 0.1725490196), rgba(243, 243, 243, 0.44), rgb(243, 243, 243), #F3F3F3);
 }
 /* styling for guide active and not active */
@@ -932,7 +936,11 @@ and classes */
         width:100% !important; 
     }
 }  
-
+@media only screen and (min-width: 600px) {
+    .guide .guide-body  p {
+    padding-right: 260px;
+    }
+}
 @media(max-width:768px){
     .container#main{
         margin:32px 10px ;
