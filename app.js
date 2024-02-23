@@ -89,7 +89,9 @@ ACCORDION
 --------------------------
 Toggling the guide steps
 */
-Array.from(document.getElementsByClassName('guide')).forEach(step=>{
+let politeScreenReader = document.querySelector('#polite-screen-reader');
+
+Array.from(document.getElementsByClassName('guide')).forEach(step => {
     let checkbox = step.querySelector('button.check-button');
     let guideTitle = step.querySelector('.guide-title');
     let steps = step.parentNode.querySelectorAll('.guide');
@@ -109,6 +111,8 @@ Array.from(document.getElementsByClassName('guide')).forEach(step=>{
             politeScreenReader.ariaLabel = guideTitle.textContent + ' accordion opened. reading content. ' + guideContent;
         }
     });
+
+    // for screen reader users
     guideTitle.addEventListener("focus", event=>{
         if(step.classList.contains('active')){
             politeScreenReader.ariaLabel = 'accordion opened. reading content ' + guideContent;
@@ -121,7 +125,8 @@ Array.from(document.getElementsByClassName('guide')).forEach(step=>{
         politeScreenReader.ariaLabel = '';
     })
 
-    checkbox.addEventListener("click", event =>{
+    //working on the functionalities of the checkbox
+    checkbox.addEventListener('click', event =>{
         if(checkbox.classList.contains('checked')){
             checkbox.classList.remove('checked');
             checkbox.classList.add('unchecking');
@@ -131,16 +136,64 @@ Array.from(document.getElementsByClassName('guide')).forEach(step=>{
             checkbox.classList.remove('unchecked');
             checkbox.classList.add('checking');
             politeScreenReader.ariaLabel = 'checking';
+            console.log("Working")
         }
         activateNewStep();
-    })
-})
-// setup guide toggling
-function openContent(step){
-    var i;
-    var x = document.getElementsByClassName("toggle-area");
-    for (i = 0; i < x.length; i++ ){
-        x[i].style.display = "none";
+    });
+
+    checkbox.addEventListener('animationend', event => {
+        event.stopPropagation();
+        politeScreenReader.ariaLabel = '';
+        
+        if(checkbox.classList.contains('checking')){
+            checkbox.classList.remove('checking');
+            checkbox.classList.add('checked');
+            checkbox.ariaChecked = true;
+            console.log("Not working");
+            politeScreenReader.ariaLabel = title.textContent + ' Checked!. press enter to uncheck';
+        }
+
+        if(checkbox.classList.contains('unchecking')){
+            checkbox.classList.remove('unchecking');
+            checkbox.classList.add('unchecked');
+            checkbox.ariaChecked = false;
+
+            console.log("Not working")
+            politeScreenReader.ariaLabel = title.textContent + ' unchecked! press enter to check';
+        }
+        activateNewStep();
+        // updateSummary();
+    });
+    
+    //selecting the next step for checking and unchecking button
+    function activateNewStep(){
+        let nextStep = (step.nextElementSibling && step.nextElementSibling.querySelector('.check-button:not(.checked)')) && step.nextElementSibling;
+        let prevStep = (step.previousElementSibling && step.previousElementSibling.querySelector('.check-button:not(.checked)')) && step.previousElementSibling;
+        let uncheckedStep = step.parentNode.querySelector('.check-button:not(.checked)') && step.parentNode.querySelector('.check-button:not(.checked)').closest('.guide');
+
+        if(checkbox.classList.contains('checked')){
+
+            if(nextStep){ 
+                closeAllAccordion();
+                nextStep.classList.add('active')
+               
+            }
+            else if(prevStep){
+                closeAllAccordion();
+                prevStep.classList.add('active'); 
+            }
+            else{
+                if(uncheckedStep){
+                    closeAllAccordion();
+                    uncheckedStep.classList.add('active');
+                }
+            }
+        }
+        
+        if(checkbox.classList.contains('unchecked')){
+            closeAllAccordion();
+            step.classList.add('active');
+        }
     }
-    document.getElementById(step).style.display = "flex";
-}
+})
+ 

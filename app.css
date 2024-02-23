@@ -708,12 +708,14 @@ and classes */
     align-items: center;
     padding-bottom: 8px;
 }
+
 /* styling the check button */
 .guide .guide-header .check-button{
     background: transparent;
     position: relative;
     width: 24px;
     display: grid;
+    aspect-ratio: 1/1;
     place-items: center;
     transition: outline-offset 0.2s ease;
     border-radius: 6px;
@@ -733,38 +735,41 @@ and classes */
     transform: translate(-50%, -50%);
     opacity: 0;
 }
-.guide .guide-header .check-button.checked > svg:is(.unchecked, .processing),
-.check-button:is(.checking, .unchecking) > svg:is(.checked, .unchecked), 
-.check-button:is(.checked, .unchecking, .checking):hover > svg.unchecked
+/* to remove the dash stroke in the circle when the default checkbox is hovered on */
+.guide .guide-header .check-button:hover svg.unchecked circle
 {
-    opacity: 0;
-}
-.guide .guide-header .check-button.checked  > svg.unchecked, 
-.check-button.unchecked svg.unchecked, 
-.check-button:is(.checking, .unchecking) svg.processing, 
-.check-button.checked svg.checked{
-    opacity: 1;
-}
-.guide .guide-header .check-button:hover svg.unchecked circle{
     stroke-dasharray: 0 0;
 }
-.guide .guide-header .check-button.checking svg.processing {
+.guide .guide-header .check-button.checked svg:is(.unchecked, .processing), 
+.guide .guide-header .check-button:is(.checking, .unchecking) > svg:is(.checked, .unchecked), 
+.guide .guide-header .check-button:is(.checked, .unchecking, .checking):hover svg.unchecked{
+    opacity: 0;
+}
+/* to display the unchecked button which is set as default */
+.guide .guide-header .check-button > svg.unchecked,
+.guide .guide-header .check-button.unchecked svg.unchecked,
+.guide .guide-header .check-button:is(.checking, .unchecking) svg.processing,
+.guide .guide-header .check-button.checked svg.checked{
+    opacity: 1;
+} 
+.guide .guide-header .check-button.checking svg.processing{
     animation: rotate 0.35s linear 3 forwards;
 }
-.guide .guide-header .check-button svg.processing {
+.guide .guide-header .check-button.unchecking svg.processing{
     animation: rotate 0.35s linear 3 reverse;
 }
-.guide .guide-header .check-button svg.checked {
+.guide .guide-header .check-button.checked svg.checked{
     animation: rotate-in 0.2s linear 1 forwards;
 }
 .guide .guide-header .check-button span:last-child span:nth-child(2) > svg.unchecked circle {
     transition: stroke-dasharray 0.2s ease;
 }
+
 /* the toggle-trigger */
 .guide .guide-header .guide-title h4{
     font-weight: 500;
     line-height: 18.2px;
-    font-size:13px;
+    font-size: 13px;
     color: #303030;
     background: unset;
     outline-offset: 4px;
@@ -1056,3 +1061,7 @@ and classes */
     }
     
 }
+/* .setup-guide #setup-guide-info .guide .guide-header .check-button#notification-menu-button[aria-expanded=true]:is(.checked, .unchecking, .checking) svg.unchecked,
+.heading #header-buttons .setup-guide #setup-guide-info .guide .guide-header .check-button#notification-menu-button[aria-expanded=true]:is(.checked, .unchecking, .checking) svg.unchecked, 
+.setup-guide #setup-guide-info .guide .guide-header .check-button#merchant-dashboard-button[aria-expanded=true]:is(.checked, .unchecking, .checking) svg.unchecked, 
+.heading #header-buttons .setup-guide #setup-guide-info .guide .guide-header .check-button#store-name-button[aria-expanded=true]:is(.checked, .unchecking, .checking) svg.unchecked{ */
